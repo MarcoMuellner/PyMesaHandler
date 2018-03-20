@@ -5,13 +5,13 @@ from MesaHandler.support import *
 
 class MesaAccess:
     def __init__(self):
-        self.fullConfig = MesaFileAccess()
+        self.mesaFileAccess = MesaFileAccess()
 
         self._fullDict = self.stripFullDict()
 
     def stripToDict(self,section):
         retDict = OrderedDict()
-        for file,parameterDict in self.fullConfig.dataDict[section].items():
+        for file,parameterDict in self.mesaFileAccess.dataDict[section].items():
             for key,value in parameterDict.items():
                 retDict[key] = value
 
@@ -25,13 +25,18 @@ class MesaAccess:
 
         return retDict
 
+    def items(self):
+        return self._fullDict.items()
+
+    def keys(self):
+        return self._fullDict.keys()
 
     def __getitem__(self, item):
         return self._fullDict[item]
 
-    def items(self):
-        return self._fullDict.items()
-
     def __setitem__(self, key, value):
-        self.fullConfig[key] = value
-        self._fullDict = self.stripFullDict()
+        if key in self._fullDict.keys():
+            self.mesaFileAccess[key] = value
+            self._fullDict = self.stripFullDict()
+        else:
+            self.mesaFileAccess.addValue(key,value)

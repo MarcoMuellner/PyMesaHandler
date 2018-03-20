@@ -12,7 +12,7 @@ class MesaFileAccess:
     def setupDict(self):
         self.dataDict = OrderedDict()
 
-        for section in [sectionStarJob,sectionControl,sectionPgStar]:
+        for section in sections:
             self.dataDict[section]  = OrderedDict()
             self.readSections("inlist",section)
 
@@ -39,7 +39,7 @@ class MesaFileAccess:
 
     def getParameters(self,section,text):
         parameters = OrderedDict()
-        p = re.compile(regex_read_parameter)
+        p = re.compile(regex_read_parameter,flags=re.MULTILINE)
 
         for matches in p.findall(text):
             if len(matches) != 2:
@@ -60,7 +60,11 @@ class MesaFileAccess:
             return data[1:-1]
         elif re.compile(regex_floatingValue).match(data) is not None:
             matches = re.compile(regex_floatingValue).findall(data)
-            return float(matches[0][0])*pow(10,float(matches[0][1]))
+            if matches[0][1] == "":
+                power = 0
+            else:
+                power = float(matches[0][1])
+            return float(matches[0][0])*pow(10,power)
         elif "." in data:
             return float(data)
         else:
@@ -86,7 +90,7 @@ class MesaFileAccess:
         return self.dataDict[item]
 
     def __setitem__(self, key, value):
-        for section in [sectionStarJob, sectionControl, sectionPgStar]:
+        for section in sections:
             for file,parameteDict in self.dataDict[section].items():
                 if key in parameteDict.keys():
                     self.rewriteFile(file,key,value)
@@ -101,4 +105,7 @@ class MesaFileAccess:
 
         self.writeFile(file,content)
         self.setupDict()
+
+    def addValue(self,key,value):
+        pass
 

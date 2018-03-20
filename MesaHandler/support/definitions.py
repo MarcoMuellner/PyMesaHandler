@@ -4,3 +4,7 @@ external_file_parameters = ["extra_star_job_inlist1_name","extra_controls_inlist
 sectionStarJob = "star_job"
 sectionControl = "controls"
 sectionPgStar = "pgstar"
+
+mesa_env = "MESA_DIR"
+
+sections = [sectionStarJob, sectionControl, sectionPgStar]

@@ -1,0 +1,40 @@
+! inlist to evolve a 15 solar mass star
+
+! For the sake of future readers of this file (yourself included),
+! ONLY include the controls you are actually using.  DO NOT include
+! all of the other controls that simply have their default values.
+
+&star_job
+
+  ! begin with a pre-main sequence model
+    create_pre_main_sequence_model = .false.
+
+  ! save a model at the end of the run
+    save_model_when_terminate = .false.
+    save_model_filename = '15M_at_TAMS.mod'
+
+  ! display on-screen plots
+    pgstar_flag = .false.
+    change_Y = .true.
+    new_Y = 0.4  
+
+/ !end of star_job namelist
+
+
+&controls
+
+  ! starting specifications
+    initial_mass = 10 ! in Msun units
+
+  ! stop when the star nears ZAMS (Lnuc/L > 0.99)
+    Lnuc_div_L_zams_limit = 0.99d0
+    stop_near_zams = .false.
+    max_age = 4.6d9 ! maximum age in Gyr
+    
+    max_years_for_timestep = 1d8 ! maximum timestep in years
+    mixing_length_alpha = 2 ! set to your target, default is 2
+! stop when the center mass fraction of h1 drops below this limit
+    xa_central_lower_limit_species(1) = 'h1'
+    xa_central_lower_limit(1) = 1d-3
+
+/ ! end of controls namelist
