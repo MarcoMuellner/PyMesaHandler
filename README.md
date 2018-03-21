@@ -1,4 +1,4 @@
-# PyMesaHandler
+# PyMesaHandler ![Travis Status](https://travis-ci.org/muma7490/PyMesaHandler.svg?branch=master)
 PyMesHandler allows for a native interaction of inlist
 files via Python. This means, that the package will
 automatically convert between the fortran like variables
