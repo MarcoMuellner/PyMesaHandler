@@ -4,8 +4,10 @@ from typing import Tuple,List
 from MesaHandler import MesaFileAccess
 from MesaHandler.support import *
 
+import shutil
 
-testWritePath = "playground/"
+
+testWritePath = "tests/playground/"
 inlistpgstarParameters = [
     "HR_win_flag",
     "HR_logT_min",
@@ -43,17 +45,29 @@ inlistProjectParametersControl = [
 
 @pytest.fixture(scope="function")
 def defaultSetup(request):
-    if "playground" not in os.listdir("."):
-        os.makedirs(testWritePath)
+    with cd("tests"):
+        if "playground" not in os.listdir("."):
+            os.makedirs("playground/")
 
 
-        def cleanup():
-            print("Performing cleanup")
-            with cd(testWritePath):
-                for i in os.listdir("."):
-                    os.remove(i)
+    def cleanup():
+        print("Performing cleanup")
+        with cd(testWritePath):
+            for i in os.listdir("."):
+                os.remove(i)
+        with cd("tests"):
+            if "playground" in os.listdir("."):
+                os.rmdir("playground")
 
-        request.addfinalizer(cleanup)
+        os.remove("inlist")
+        os.remove("inlist_pgstar")
+        os.remove("inlist_project")
+
+    shutil.copy2("tests/inlist","inlist")
+    shutil.copy2("tests/inlist_pgstar", "inlist_pgstar")
+    shutil.copy2("tests/inlist_project", "inlist_project")
+
+    request.addfinalizer(cleanup)
     return MesaFileAccess()
 
 def testObject(defaultSetup: MesaFileAccess):
