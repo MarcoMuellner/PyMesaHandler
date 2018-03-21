@@ -67,6 +67,12 @@ def testObject(defaultSetup: MesaFileAccess):
     assert object["controls"]["inlist_project"]["initial_mass"] == 5
     object["initial_mass"] = 10
     assert object["controls"]["inlist_project"]["initial_mass"] == 10
+    object.addValue("saved_model_for_merger_1","text")
+    assert object["star_job"]["inlist_project"]["saved_model_for_merger_1"] == "text"
+    object.removeValue("saved_model_for_merger_1")
+    with pytest.raises(KeyError):
+        object.addValue("dummy","dummy")
+
 
 
 @pytest.mark.parametrize("value",[("firstFile","abcd"),("secondFile.txt","efgh"),("firstFile","jklmn")])

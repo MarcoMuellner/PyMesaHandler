@@ -1,7 +1,7 @@
-from MesaHandler import MesaFileAccess
+from MesaHandler.MesaFileHandler import MesaFileAccess
+from MesaHandler.support import *
 
 from collections import OrderedDict
-from MesaHandler.support import *
 
 class MesaAccess:
     def __init__(self):
