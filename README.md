@@ -28,7 +28,9 @@ update them accordingly
 - **Python file types**. You can actually do some scripting
 or calculation beforehand. The package will automatically
 convert these properly to the right types for fortran.
-
+- **Parameter creation and deletion**: Currently the module only allows
+for access of already existing parameters. This will
+include checks if the parameter actually exists within Mesa.
 ## Getting started
 PyMesaHandler is available through pip. To install simply
 call
@@ -56,10 +58,7 @@ module. The goal is to create a package, where you no
 longer need to manually run Mesa, so that you can automate
 your usage of Mesa. Features for the pipeline are:
 
-- **Parameter creation**: Currently the module only allows
-for access of already existing parameters. This will
-include checks if the parameter actually exists within Mesa.
-- **Automated Build & run for Mesa**: The moduel will run
+- **Automated Build & run for Mesa**: The modul will run
 Mesa if you want to run it through the module
 - **Plotting capabilities**: You want to plot one
 or multiple results from Mesa? That will be also possible
