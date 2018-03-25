@@ -28,9 +28,11 @@ update them accordingly
 - **Python file types**. You can actually do some scripting
 or calculation beforehand. The package will automatically
 convert these properly to the right types for fortran.
-- **Parameter creation and deletion**: Currently the module only allows
-for access of already existing parameters. This will
-include checks if the parameter actually exists within Mesa.
+- **Parameter creation and deletion**: The package allows you to create
+and remove parameters from your inlist files, again using only python
+datatypes. It will even check if the parameter is available through
+the Mesa defaults and if the type of the data you want to assign is the
+correct one.
 ## Getting started
 PyMesaHandler is available through pip. To install simply
 call
@@ -63,5 +65,9 @@ Mesa if you want to run it through the module
 - **Plotting capabilities**: You want to plot one
 or multiple results from Mesa? That will be also possible
 through this package.
+- **Creation of new projects and sharing of projects**: One of the final
+goals with this project is, that you only need to share your python
+project. Anyone who has Python and Mesa installed, will than be able to
+run your model using only python code.
 
 And various other features that are not yet included.

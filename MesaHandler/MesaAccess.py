@@ -37,6 +37,11 @@ class MesaAccess:
     def __setitem__(self, key, value):
         if key in self._fullDict.keys():
             self.mesaFileAccess[key] = value
-            self._fullDict = self.stripFullDict()
         else:
             self.mesaFileAccess.addValue(key,value)
+
+        self._fullDict = self.stripFullDict()
+
+    def __delitem__(self, key):
+        if key in self._fullDict.keys():
+            self.mesaFileAccess.removeValue(key)
