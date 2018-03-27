@@ -33,6 +33,9 @@ and remove parameters from your inlist files, again using only python
 datatypes. It will even check if the parameter is available through
 the Mesa defaults and if the type of the data you want to assign is the
 correct one.
+- **Includes the full capabilities of MesaReader**: MesaReader is
+included as a submodule of this code, and therefore provides it's full
+capabilities. Further integration is also part of future development.
 ## Getting started
 PyMesaHandler is available through pip. To install simply
 call
@@ -54,6 +57,15 @@ object["initial_mass"] = 5
 and run it. **Thats it**. The file will now have the
 changed mass as its parameter.
 
+PyMesaHandler also includes MesaReader, whichs documentation can be
+found [here](https://wmwolf.github.io/py_mesa_reader/).
+
+## Credit
+
+As it should be mentioned here, the code makes use of
+[MesaReader](https://github.com/wmwolf/py_mesa_reader). Thanks to
+the original author to make its use available to me.
+
 ## Future development
 There are many features that are aimed to be added to this
 module. The goal is to create a package, where you no
@@ -69,5 +81,9 @@ through this package.
 goals with this project is, that you only need to share your python
 project. Anyone who has Python and Mesa installed, will than be able to
 run your model using only python code.
+- **Further Integration of MesaReader**: MesaReader has some cool
+capabilities to get Mesa Reader into Python. Future development will
+see further integration into the MesaAccess class, as this should
+be the only point of entry to interact with Mesa.
 
 And various other features that are not yet included.
