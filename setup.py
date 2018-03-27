@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='PyMesaHandler',
-    version='0.1.0',
+    version='0.2.0',
     packages=['MesaHandler'],
     url='https://github.com/muma7490/PyMesaHandler',
     license='MIT',
@@ -10,5 +10,7 @@ setup(
     author_email='muellnermarco@gmail.com',
     description='An easy way to handle Mesa using Python',
     long_description=open('README.md').read(),
-    requires=["numpy"]
+    install_requires=[
+        'numpy',
+    ]
 )

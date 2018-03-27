@@ -1,3 +1,3 @@
-from .MesaAccess import *
-from .MesaFileHandler import *
-from .py_mesa_reader import *
+from MesaHandler.MesaAccess import *
+from MesaHandler.MesaFileHandler import *
+from MesaHandler.py_mesa_reader import *
