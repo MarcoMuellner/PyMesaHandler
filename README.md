@@ -55,7 +55,8 @@ object = MesaAccess()
 object["initial_mass"] = 5
 ```
 and run it. **Thats it**. The file will now have the
-changed mass as its parameter.
+changed mass as its parameter. You can use any parameter that is
+available through your installed Mesa version.
 
 PyMesaHandler also includes MesaReader, whichs documentation can be
 found [here](https://wmwolf.github.io/py_mesa_reader/).
