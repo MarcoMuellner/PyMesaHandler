@@ -9,5 +9,6 @@ setup(
     author='Marco Müllner',
     author_email='muellnermarco@gmail.com',
     description='An easy way to handle Mesa using Python',
-    long_description=open('README.md').read()
+    long_description=open('README.md').read(),
+    requires=["numpy"]
 )

@@ -40,7 +40,7 @@ class IMesaInterface:
             except:
                 raise AttributeError("Cannot convert "+data+" to known type!")
 
-    def convertToInlistValue(self,data):
+    def convertToFortranType(self, data):
         if isinstance(data,bool):
             return "."+("true"if data else "false") + "."
         elif isinstance(data,str):

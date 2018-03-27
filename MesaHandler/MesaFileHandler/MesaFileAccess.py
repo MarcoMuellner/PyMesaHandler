@@ -40,7 +40,7 @@ class MesaFileAccess(IMesaInterface):
                 if key in parameteDict.keys():
                     self.dataDict[section][file][key] = value
                     regex = r"(" + key + r".+=)\s* ([\.\w_\d']+)"
-                    substring = r"\1 "+self.convertToInlistValue(value)
+                    substring = r"\1 "+self.convertToFortranType(value)
                     self.rewriteFile(file,regex,substring)
                     return
 
@@ -72,7 +72,7 @@ class MesaFileAccess(IMesaInterface):
             self.__setitem__(key,parmValue)
         else:
             regex = r"(&" + section + r"[\w_\s\.\'\=\!\(\)\/\>\<\-\,]+)(\/)"
-            substring = r"\1\n    " + key + "=" + self.convertToInlistValue(value) + r"\n\2"
+            substring = r"\1\n    " + key + "=" + self.convertToFortranType(value) + r"\n\2"
             self.rewriteFile(usedFile, regex, substring)
             self.dataDict[section][usedFile][key] = parmValue
 
