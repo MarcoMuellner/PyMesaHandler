@@ -3,49 +3,59 @@ from MesaHandler.MesaFileHandler.MesaEnvironmentHandler import MesaEnvironmentHa
 import click
 
 class ProjectOps:
-    def __init__(self, projName=''):
+    def __init__(self, name=''):
         self.envObject = MesaEnvironmentHandler()
-        if projName == '':
-            self.projName = input("No project name supplied! Please provide a project name... \n")
+        if name == '':
+            self.projName = "work"
+            ### If user input is preferred over a default value, uncomment the line below
+            # self.projName = input("No project name supplied! Please provide a project name... \n")
         else:
-            self.projName = projName
-    
-    def make(self):
-        if not os.path.exists(self.projName):
-            print("Project does not exists!! Create a project first.")
-        else:
-            os.system("cd %s; ./mk >/dev/null 2>&1" %self.projName)
-    
-    def run(self):
-        if not os.path.exists(self.projName):
-            print("Project does not exists!!")
-        else:
-            os.system("cd %s; ./rn" %self.projName)
+            self.projName = name
 
     
-    def create(self, overwrite=False, clean=False):
+    def create(self, overwrite=None, clean=None):       ### overwrite and clean are boolean arguments that are intentionally kept empty
+        def useExisting():
+            if click.confirm("Use the already existing '%s' project as it is?" %self.projName, default=False):
+                os.chdir(self.projName)
+            else:
+                raise Exception("Aborting!!! No project specified.")
+                os._exit()
+
+        def cleanCheck():
+            if clean == None:
+                if click.confirm("Clean the existing '%s' project for re-use?" %self.projName, default=False):
+                    self.workClean()
+                else:
+                    useExisting()
+            elif clean == True:
+                self.workClean()
+            elif clean == False:
+                useExisting()
+
         if os.path.exists(self.projName):
-            print("Mesa project "+self.projName+" already exists! \n")
-            if overwrite == False:
-                if click.confirm("Do you wish to overwrite?", default=False):
+            print("Mesa project named '"+self.projName+"' already exists! \n")
+            if overwrite == True:
+                self.workCreate()
+            elif overwrite == False:
+                cleanCheck()
+            elif overwrite == None:
+                if click.confirm("Use the already existing '%s' project as it is?" %self.projName, default=False):
+                    os.chdir(self.projName)
+                elif click.confirm("Do you wish to overwrite?", default=False):
                     os.system("rm -rf %s" %self.projName)
                     self.workCreate()
-                elif clean == False:
-                    if click.confirm("Clean the existing work directory for re-use?", default=False):
-                        self.workClean()
-                elif clean == True:
-                    self.workClean()
-            else:
-                self.workCreate() 
+                else:
+                    cleanCheck()
         else:
             self.workCreate()
-    
+
 
     def workClean(self):
         os.system('''
                 cd %s
                 ./clean
                 ''' %self.projName)
+        os.chdir(self.projName)
 
     def workCreate(self):
         os.system('''
@@ -53,6 +63,17 @@ class ProjectOps:
                 cd %s
                 ''' %(self.projName, self.projName)
                 )
+        os.chdir(self.projName)
+
+    def make(self):
+        try:
+            os.system("./mk >/dev/null 2>&1")
+        except:
+            print("Project does not exists!!")
+        
     
-    def projectName(self):
-        return self.projName
+    def run(self):
+        try:
+            os.system("./rn")
+        except:
+            print("Project does not exists!!")
