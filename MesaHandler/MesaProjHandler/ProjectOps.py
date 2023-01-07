@@ -53,3 +53,6 @@ class ProjectOps:
                 cd %s
                 ''' %(self.projName, self.projName)
                 )
+    
+    def projectName(self):
+        return self.projName
