@@ -105,3 +105,7 @@ ENV/
 \.pytest_cache/v/cache/
 
 tests/playground/
+
+# Mac OS generated files #
+**/.DS_Store
+
