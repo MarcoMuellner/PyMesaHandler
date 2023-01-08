@@ -69,11 +69,17 @@ class ProjectOps:
         try:
             os.system("./mk >/dev/null 2>&1")
         except:
-            print("Project does not exists!!")
+            raise Exception("Project '%s' does not exists...could not make!" %self.projName)
         
     
     def run(self):
         try:
             os.system("./rn")
         except:
-            print("Project does not exists!!")
+            raise Exception("Project '%s' does not exists...could not run!" %self.projName)
+    
+    def rerun(self, photo):
+        try:
+            os.system("./re %s" %photo)
+        except:
+            raise Exception("Photo '%s' does not exists...could not restart!" %photo)
