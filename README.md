@@ -60,7 +60,7 @@ work.create()              ## Use boolean arguments 'overwrite' and 'clean' to w
                            ## Interactive user prompts are shown if neither of these arguments are supplied.
 
 work.loadProjInlist("relative/path/to/inlist_custom_project")
-work.loadPGstarInlist("relative/path/to/inlist_custion_pgstar")
+work.loadPGstarInlist("relative/path/to/inlist_custom_pgstar")
 
 object = MesaAccess()
 object["initial_mass"] = 5
