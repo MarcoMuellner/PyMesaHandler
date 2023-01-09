@@ -56,13 +56,19 @@ from MesaHandler import MesaAccess
 
 
 work = ProjectOps()        ## Use ProjectOps("your_project") for a custom project name  
-work.create()              ## Use boolean arguments 'overwrite' and 'clean' to work on existing projects
+work.create()              ## Use boolean arguments 'overwrite' and 'clean' to work on existing projects.
+                           ## Interactive user prompts are shown if neither of these arguments are supplied.
+
+work.loadProjInlist("relative/path/to/inlist_custom_project")
+work.loadPGstarInlist("relative/path/to/inlist_custion_pgstar")
 
 object = MesaAccess()
 object["initial_mass"] = 5
 
 work.make()
 work.run()
+work.rerun("x450")        ## Rerun from a photo
+work.clean()              ## Clean the project
 ```
 **Thats it**. You will now have a new project (MESA work directory) with the inlist file having the
 changed mass as its parameter. You can use any parameter that is
