@@ -36,6 +36,9 @@ correct one.
 - **Includes the full capabilities of MesaReader**: MesaReader is
 included as a submodule of this code, and therefore provides it's full
 capabilities. Further integration is also part of future development.
+- **Creation of new projects and sharing of projects**: Now you only need to share your python
+project. Anyone who has Python and Mesa installed, will than be able to
+run your model using only python code. You can also run Mesa solely through the module.
 ## Getting started
 PyMesaHandler is available through pip. To install simply
 call
@@ -43,20 +46,28 @@ call
 pip install PyMesaHandler
 ```
 ## Usage example
-Lets say you want to edit the initial mass of the model
-you want to create. Simply create a python file
-in the same directory as the inlist files with the
-following code
+Simply write a python file anywhere and 
+use it to create, modify, make and run a project in the current working 
+directory. Lets say you want to create a new project and edit the initial mass of the model
+you want to create, you can do all this with the following code
 ```python
+from MesaHandler.MesaProjHandler import ProjectOps
 from MesaHandler import MesaAccess
 
-object = MesaAccess()
 
+work = ProjectOps()        ## Use ProjectOps("your_project") for a custom project name  
+work.create()              ## Use boolean arguments 'overwrite' and 'clean' to work on existing projects
+
+object = MesaAccess()
 object["initial_mass"] = 5
+
+work.make()
+work.run()
 ```
-and run it. **Thats it**. The file will now have the
+**Thats it**. You will now have a new project (MESA work directory) with the inlist file having the
 changed mass as its parameter. You can use any parameter that is
 available through your installed Mesa version.
+Also refer examply.py for more information.
 
 PyMesaHandler also includes MesaReader, whichs documentation can be
 found [here](https://wmwolf.github.io/py_mesa_reader/).
@@ -73,15 +84,9 @@ module. The goal is to create a package, where you no
 longer need to manually run Mesa, so that you can automate
 your usage of Mesa. Features for the pipeline are:
 
-- **Automated Build & run for Mesa**: The modul will run
-Mesa if you want to run it through the module
 - **Plotting capabilities**: You want to plot one
 or multiple results from Mesa? That will be also possible
 through this package.
-- **Creation of new projects and sharing of projects**: One of the final
-goals with this project is, that you only need to share your python
-project. Anyone who has Python and Mesa installed, will than be able to
-run your model using only python code.
 - **Further Integration of MesaReader**: MesaReader has some cool
 capabilities to get Mesa Reader into Python. Future development will
 see further integration into the MesaAccess class, as this should
