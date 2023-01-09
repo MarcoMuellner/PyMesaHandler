@@ -24,18 +24,22 @@ class ProjectOps:
         def cleanCheck():
             if clean == None:
                 if click.confirm("Clean the existing '%s' project for re-use?" %self.projName, default=False):
-                    self.workClean()
+                    os.chdir(self.projName)
+                    self.clean()
                 else:
                     useExisting()
             elif clean == True:
-                self.workClean()
+                os.chdir(self.projName)
+                self.clean()
             elif clean == False:
-                useExisting()
+                os.chdir(self.projName)
+                print("Using the already existing '%s' project as it is." %self.projName)
 
         if os.path.exists(self.projName):
             print("Mesa project named '"+self.projName+"' already exists! \n")
             if overwrite == True:
                 self.workCreate()
+                os.chdir(self.projName)
             elif overwrite == False:
                 cleanCheck()
             elif overwrite == None:
@@ -44,26 +48,22 @@ class ProjectOps:
                 elif click.confirm("Do you wish to overwrite?", default=False):
                     os.system("rm -rf %s" %self.projName)
                     self.workCreate()
+                    os.chdir(self.projName)
                 else:
                     cleanCheck()
         else:
             self.workCreate()
+            os.chdir(self.projName)
 
-
-    def workClean(self):
-        os.system('''
-                cd %s
-                ./clean
-                ''' %self.projName)
-        os.chdir(self.projName)
 
     def workCreate(self):
-        os.system('''
-                cp -R $MESA_DIR/star/work %s
-                cd %s
-                ''' %(self.projName, self.projName)
-                )
-        os.chdir(self.projName)
+        os.system(" cp -R $MESA_DIR/star/work %s" %self.projName)
+
+    def clean(self):
+        try:
+            os.system("./clean")
+        except:
+            raise Exception("Project '%s' does not exists...could not clean!" %self.projName)
 
     def make(self):
         try:
@@ -83,3 +83,15 @@ class ProjectOps:
             os.system("./re %s" %photo)
         except:
             raise Exception("Photo '%s' does not exists...could not restart!" %photo)
+    
+    def loadProjInlist(self, inlistPath):
+        try:
+            os.system("rm -f inlist_project; cd ..; cp %s %s/inlist_project" %(inlistPath, self.projName))
+        except:
+            raise Exception("Inlist '%s' does not exists...could not restart!" %inlistPath)
+    
+    def loadPGstarInlist(self, inlistPath):
+        try:
+            os.system("rm -f inlist_pgstar; cd ..; cp %s %s/inlist_pgstar" %(inlistPath, self.projName))
+        except:
+            raise Exception("Inlist '%s' does not exists...could not restart!" %inlistPath)
