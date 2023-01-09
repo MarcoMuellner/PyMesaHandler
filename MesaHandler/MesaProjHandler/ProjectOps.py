@@ -11,53 +11,45 @@ class ProjectOps:
             # self.projName = input("No project name supplied! Please provide a project name... \n")
         else:
             self.projName = name
+        if os.path.exists(self.projName):
+            os.chdir(self.projName)
 
     
     def create(self, overwrite=None, clean=None):       ### overwrite and clean are boolean arguments that are intentionally kept empty
         def useExisting():
-            if click.confirm("Use the already existing '%s' project as it is?" %self.projName, default=False):
-                os.chdir(self.projName)
-            else:
+            if not click.confirm("Use the already existing '%s' project as it is?" %self.projName, default=False):
                 raise Exception("Aborting!!! No project specified.")
                 os._exit()
 
         def cleanCheck():
             if clean == None:
                 if click.confirm("Clean the existing '%s' project for re-use?" %self.projName, default=False):
-                    os.chdir(self.projName)
                     self.clean()
                 else:
                     useExisting()
             elif clean == True:
-                os.chdir(self.projName)
                 self.clean()
             elif clean == False:
-                os.chdir(self.projName)
                 print("Using the already existing '%s' project as it is." %self.projName)
 
         if os.path.exists(self.projName):
             print("Mesa project named '"+self.projName+"' already exists! \n")
             if overwrite == True:
-                self.workCreate()
+                os.system("cd ..; rm -rf %s;cp -R $MESA_DIR/star/work %s" %(self.projName,self.projName))
                 os.chdir(self.projName)
             elif overwrite == False:
                 cleanCheck()
             elif overwrite == None:
-                if click.confirm("Use the already existing '%s' project as it is?" %self.projName, default=False):
-                    os.chdir(self.projName)
-                elif click.confirm("Do you wish to overwrite?", default=False):
-                    os.system("rm -rf %s" %self.projName)
-                    self.workCreate()
-                    os.chdir(self.projName)
-                else:
-                    cleanCheck()
+                if not click.confirm("Use the already existing '%s' project as it is?" %self.projName, default=False):
+                    if click.confirm("Do you wish to overwrite?", default=False):
+                        os.system("cd ..; rm -rf %s;cp -R $MESA_DIR/star/work %s" %(self.projName,self.projName))
+                        os.chdir(self.projName)
+                    else:
+                        cleanCheck()
         else:
-            self.workCreate()
+            os.system("cp -R $MESA_DIR/star/work %s" %self.projName)
             os.chdir(self.projName)
-
-
-    def workCreate(self):
-        os.system(" cp -R $MESA_DIR/star/work %s" %self.projName)
+        
 
     def clean(self):
         try:
