@@ -36,14 +36,12 @@ class ProjectOps:
             print("Mesa project named '"+self.projName+"' already exists! \n")
             if overwrite == True:
                 os.system("cd ..; rm -rf %s;cp -R $MESA_DIR/star/work %s" %(self.projName,self.projName))
-                os.chdir(self.projName)
             elif overwrite == False:
                 cleanCheck()
             elif overwrite == None:
                 if not click.confirm("Use the already existing '%s' project as it is?" %self.projName, default=False):
                     if click.confirm("Do you wish to overwrite?", default=False):
                         os.system("cd ..; rm -rf %s;cp -R $MESA_DIR/star/work %s" %(self.projName,self.projName))
-                        os.chdir(self.projName)
                     else:
                         cleanCheck()
         else:
