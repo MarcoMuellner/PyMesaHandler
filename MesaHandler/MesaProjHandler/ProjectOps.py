@@ -37,7 +37,7 @@ class ProjectOps:
         
         def writeover():
             os.chdir("..")
-            os.system("cp -r $MESA_DIR/star/work ..")
+            os.system("rm -rf %s; cp -r $MESA_DIR/star/work ." %self.projName)
             os.rename("work", self.projName)
             os.chdir(self.projName)
 
