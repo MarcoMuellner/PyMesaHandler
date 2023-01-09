@@ -70,7 +70,6 @@ class ProjectOps:
             os.system("./mk >/dev/null 2>&1")
         except:
             raise Exception("Project '%s' does not exists...could not make!" %self.projName)
-        
     
     def run(self):
         try:
