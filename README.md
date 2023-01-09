@@ -48,7 +48,7 @@ pip install PyMesaHandler
 ## Usage example
 Simply write a python file anywhere and 
 use it to create, modify, make and run a project in the current working 
-directory. Now lets say you want to edit the initial mass of the model
+directory. Lets say you want to create a new project and edit the initial mass of the model
 you want to create, you can do all this with the following code
 ```python
 from MesaHandler.MesaProjHandler import ProjectOps
