@@ -49,7 +49,7 @@ pip install PyMesaHandler
 Simply write a python file anywhere and 
 use it to create, modify, make and run a project in the current working 
 directory. Lets say you want to create a new project and edit the initial mass of the model
-you want to create, you can do all this with the following code
+you want to work on, you can do all this with the following code
 ```python
 from MesaHandler.MesaProjHandler import ProjectOps
 from MesaHandler import MesaAccess
