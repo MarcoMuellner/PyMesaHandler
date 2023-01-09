@@ -86,7 +86,7 @@ class ProjectOps:
             if silent == False:
                 os.system("./rn")
             elif silent == True:
-                os.system("./rn >runlog 2>&1")
+                os.system("./rn >>runlog 2>&1")
             else:
                 raise Exception("Invalid input for argument 'silent'")
             print("Done with the run!\n")
