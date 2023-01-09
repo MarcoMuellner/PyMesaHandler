@@ -13,6 +13,9 @@ class ProjectOps:
             self.projName = name
         if os.path.exists(self.projName):
             os.chdir(self.projName)
+            self.found = True               ## Proj already present flag
+        else:
+            self.found = False
 
     
     def create(self, overwrite=None, clean=None):       ### overwrite and clean are boolean arguments that are intentionally kept empty
@@ -31,23 +34,30 @@ class ProjectOps:
                 self.clean()
             elif clean == False:
                 print("Using the already existing '%s' project as it is." %self.projName)
+        
+        def writeover():
+            os.chdir("..")
+            os.system("cp -r $MESA_DIR/star/work ..")
+            os.rename("work", self.projName)
+            os.chdir(self.projName)
 
-        if os.path.exists(self.projName):
+        if self.found == True:
             print("Mesa project named '"+self.projName+"' already exists! \n")
             if overwrite == True:
-                os.system("cd ..; rm -rf %s;cp -R $MESA_DIR/star/work %s" %(self.projName,self.projName))
+                writeover()
             elif overwrite == False:
                 cleanCheck()
             elif overwrite == None:
                 if not click.confirm("Use the already existing '%s' project as it is?" %self.projName, default=False):
                     if click.confirm("Do you wish to overwrite?", default=False):
-                        os.system("cd ..; rm -rf %s;cp -R $MESA_DIR/star/work %s" %(self.projName,self.projName))
+                        writeover()
                     else:
                         cleanCheck()
         else:
-            os.system("cp -R $MESA_DIR/star/work %s" %self.projName)
+            os.system("cp -r $MESA_DIR/star/work %s" %self.projName)
             os.chdir(self.projName)
         
+    
 
     def clean(self):
         try:
@@ -75,12 +85,12 @@ class ProjectOps:
     
     def loadProjInlist(self, inlistPath):
         try:
-            os.system("rm -f inlist_project; cd ..; cp %s %s/inlist_project" %(inlistPath, self.projName))
+            os.system("cd ..; cp %s %s/inlist_project" %(inlistPath, self.projName))
         except:
             raise Exception("Inlist '%s' does not exists...could not restart!" %inlistPath)
     
     def loadPGstarInlist(self, inlistPath):
         try:
-            os.system("rm -f inlist_pgstar; cd ..; cp %s %s/inlist_pgstar" %(inlistPath, self.projName))
+            os.system("cd ..; cp %s %s/inlist_pgstar" %(inlistPath, self.projName))
         except:
             raise Exception("Inlist '%s' does not exists...could not restart!" %inlistPath)
