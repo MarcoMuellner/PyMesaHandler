@@ -64,7 +64,7 @@ object["initial_mass"] = 5
 work.make()
 work.run()
 ```
-**Thats it**. You will have a new project (MESA work directory) with the inlist file having the
+**Thats it**. You will now have a new project (MESA work directory) with the inlist file having the
 changed mass as its parameter. You can use any parameter that is
 available through your installed Mesa version.
 Also refer examply.py for more information.
