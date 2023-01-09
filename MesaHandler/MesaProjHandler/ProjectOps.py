@@ -18,6 +18,7 @@ class ProjectOps:
             self.found = False
 
     
+    
     def create(self, overwrite=None, clean=None):       ### overwrite and clean are boolean arguments that are intentionally kept empty
         def useExisting():
             if not click.confirm("Use the already existing '%s' project as it is?" %self.projName, default=False):
@@ -44,12 +45,12 @@ class ProjectOps:
             os.chdir(self.projName)
 
         if self.found == True:
-            print("Mesa project named '"+self.projName+"' already exists! \n")
             if overwrite == True:
                 writeover()
             elif overwrite == False:
                 cleanCheck()
             elif overwrite == None:
+                print("Mesa project named '"+self.projName+"' already exists! \n")
                 if not click.confirm("Use the already existing '%s' project as it is?" %self.projName, default=False):
                     if click.confirm("Do you wish to overwrite?", default=False):
                         writeover()
@@ -65,30 +66,38 @@ class ProjectOps:
 
     def clean(self):
         try:
+            print("Cleaning...\n")
             os.system("./clean")
+            print("Done cleaning.")
         except:
             raise Exception("Project '%s' does not exists...could not clean!" %self.projName)
 
     def make(self):
         try:
+            print("Making...\n")
             os.system("./mk >/dev/null 2>&1")
+            print("Done making.")
         except:
             raise Exception("Project '%s' does not exists...could not make!" %self.projName)
     
     def run(self, silent=False):
         try:
+            print('Running...')
             if silent == False:
                 os.system("./rn")
             elif silent == True:
                 os.system("./rn >runlog 2>&1")
             else:
                 raise Exception("Invalid input for argument 'silent'")
+            print("Done with the run!")
         except:
             raise Exception("Project '%s' does not exists...could not run!" %self.projName)
     
     def rerun(self, photo):
         try:
+            print("Running from photo...")
             os.system("./re %s" %photo)
+            print("Done with the run!")
         except:
             raise Exception("Photo '%s' does not exists...could not restart!" %photo)
     
