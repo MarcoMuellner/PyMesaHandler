@@ -5,15 +5,14 @@ from MesaHandler import MesaAccess
 work = ProjectOps()          
 
 ## Use boolean arguments 'overwrite' and 'clean' to work on existing projects
-work.create()              
+work.create()   
+work.make()           
 
 work.loadProjInlist("/path/to/inlist")
 # work.loadPGstarInlist("/path/to/inlist")
 
 object = MesaAccess()
 object["initial_mass"] = 5
-
-work.make()
 
 ## Use argument silent=True (False by default) for a silent run, terminal output is redirected to runlog
 work.run()              
