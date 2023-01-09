@@ -37,7 +37,7 @@ correct one.
 included as a submodule of this code, and therefore provides it's full
 capabilities. Further integration is also part of future development.
 - **Creation of new projects and sharing of projects**: Now you only need to share your python
-project. Anyone who has Python and Mesa installed, will than be able to
+project. Anyone who has Python and Mesa installed, will then be able to
 run your model using only python code. You can also run Mesa solely through the module.
 ## Getting started
 PyMesaHandler is available through pip. To install simply
