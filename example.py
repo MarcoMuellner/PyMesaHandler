@@ -1,9 +1,11 @@
 from MesaHandler.MesaProjHandler import ProjectOps
 from MesaHandler import MesaAccess
 
+## Use ProjectOps("your_project") for a custom project name
+work = ProjectOps()          
 
-work = ProjectOps()        ## Use ProjectOps("your_project") for a custom project name  
-work.create()              ## Use boolean arguments 'overwrite' and 'clean' to work on existing projects
+## Use boolean arguments 'overwrite' and 'clean' to work on existing projects
+work.create()              
 
 work.loadProjInlist("/path/to/inlist")
 # work.loadPGstarInlist("/path/to/inlist")
@@ -12,6 +14,12 @@ object = MesaAccess()
 object["initial_mass"] = 5
 
 work.make()
-# work.run()
-# work.rerun("x450")
-# work.clean()              ## Clean the project
+
+## Use argument silent=True (False by default) for a silent run, terminal output is redirected to runlog
+work.run()              
+
+## arg silent is False by default
+work.rerun("x450", silent=True)      
+ 
+## Clean the project
+work.clean()              

@@ -34,6 +34,8 @@ class ProjectOps:
                 self.clean()
             elif clean == False:
                 print("Using the already existing '%s' project as it is." %self.projName)
+            else:
+                raise Exception("Invalid input for argument 'clean'")
         
         def writeover():
             os.chdir("..")
@@ -53,6 +55,8 @@ class ProjectOps:
                         writeover()
                     else:
                         cleanCheck()
+            else:
+                raise Exception("Invalid input for argument 'overwrite'")
         else:
             os.system("cp -r $MESA_DIR/star/work %s" %self.projName)
             os.chdir(self.projName)
@@ -71,9 +75,14 @@ class ProjectOps:
         except:
             raise Exception("Project '%s' does not exists...could not make!" %self.projName)
     
-    def run(self):
+    def run(self, silent=False):
         try:
-            os.system("./rn")
+            if silent == False:
+                os.system("./rn")
+            elif silent == True:
+                os.system("./rn >runlog 2>&1")
+            else:
+                raise Exception("Invalid input for argument 'silent'")
         except:
             raise Exception("Project '%s' does not exists...could not run!" %self.projName)
     
