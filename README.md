@@ -59,9 +59,6 @@ work = ProjectOps()        ## Use ProjectOps("your_project") for a custom projec
 work.create()              ## Use boolean arguments 'overwrite' and 'clean' to work on existing projects.
                            ## Interactive user prompts are shown if neither of these arguments are supplied.
 
-work.loadProjInlist("relative/path/to/inlist_custom_project")
-work.loadPGstarInlist("relative/path/to/inlist_custom_pgstar")
-
 object = MesaAccess()
 object["initial_mass"] = 5
 
@@ -72,8 +69,8 @@ work.clean()              ## Clean the project
 ```
 **Thats it**. You will now have a new project (MESA work directory) with the inlist file having the
 changed mass as its parameter. You can use any parameter that is
-available through your installed Mesa version.
-Also refer examply.py for more information.
+available through your installed Mesa version. Or you can even load a custom inlist altogether.
+Please refer examply.py for more information.
 
 PyMesaHandler also includes MesaReader, whichs documentation can be
 found [here](https://wmwolf.github.io/py_mesa_reader/).
