@@ -75,7 +75,7 @@ class ProjectOps:
     def make(self):
         try:
             print("Making...")
-            os.system("./mk >>/dev/null 2&>1")
+            os.system("./mk >>/dev/null 2>&1")
             print("Done making.\n")
         except:
             raise Exception("Project '%s' does not exists...could not make!" %self.projName)
@@ -86,7 +86,7 @@ class ProjectOps:
             if silent == False:
                 os.system("./rn")
             elif silent == True:
-                os.system("./rn &>>runlog")
+                os.system("./rn &>> runlog")
             else:
                 raise Exception("Invalid input for argument 'silent'")
             print("Done with the run!\n")
@@ -99,7 +99,7 @@ class ProjectOps:
             if silent == False:
                 os.system("./re %s" %photo)
             elif silent == True:
-                os.system("./re %s &>>runlog" %photo)
+                os.system("./re %s &>> runlog" %photo)
             else:
                 raise Exception("Invalid input for argument 'silent'")
             print("Done with the run!\n")
