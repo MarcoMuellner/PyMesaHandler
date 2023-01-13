@@ -75,7 +75,7 @@ class ProjectOps:
     def make(self):
         try:
             print("Making...")
-            os.system("./mk >>/dev/null 2>&1")
+            os.system("./mk &>> /dev/null")
             print("Done making.\n")
         except:
             raise Exception("Project '%s' does not exists...could not make!" %self.projName)
