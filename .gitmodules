@@ -1,3 +1,6 @@
 [submodule "MesaHandler/py_mesa_reader"]
 	path = MesaHandler/py_mesa_reader
 	url = https://github.com/muma7490/py_mesa_reader
+[submodule "MesaHandler/MesaProjHandler"]
+	path = MesaHandler/MesaProjHandler
+	url = https://github.com/gautam-404/MesaProjHandler.git
