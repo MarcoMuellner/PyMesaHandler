@@ -22,7 +22,7 @@ class ProjectOps:
     def create(self, overwrite=None, clean=None):       ### overwrite and clean are boolean arguments that are intentionally kept empty
         def useExisting():
             if not click.confirm("Use the already existing '%s' project as it is?" %self.projName, default=False):
-                raise Exception("Aborting!!! No project specified.")
+                raise ValueError("Aborting!!! No project specified.")
                 os._exit()
 
         def cleanCheck():
@@ -35,8 +35,8 @@ class ProjectOps:
                 self.clean()
             elif clean == False:
                 print("Using the already existing '%s' project as it is." %self.projName)
-            else:
-                raise Exception("Invalid input for argument 'clean'")
+            else Exception:
+                raise ValueError("Invalid input for argument 'clean'")
         
         def writeover():
             os.chdir("..")
@@ -57,7 +57,7 @@ class ProjectOps:
                     else:
                         cleanCheck()
             else:
-                raise Exception("Invalid input for argument 'overwrite'")
+                raise ValueError("Invalid input for argument 'overwrite'")
         else:
             os.system("cp -r $MESA_DIR/star/work %s" %self.projName)
             os.chdir(self.projName)
@@ -69,16 +69,16 @@ class ProjectOps:
             print("Cleaning...")
             os.system("./clean")
             print("Done cleaning.\n")
-        except:
-            raise Exception("Project '%s' does not exists...could not clean!" %self.projName)
+        except Exception:
+            raise OSError("Project '%s' does not exists...could not clean!" %self.projName)
 
     def make(self):
         try:
             print("Making...")
             os.system("./mk >>/dev/null 2>&1")
             print("Done making.\n")
-        except:
-            raise Exception("Project '%s' does not exists...could not make!" %self.projName)
+        except Exception:
+            raise OSError("Project '%s' does not exists...could not make!" %self.projName)
     
     def run(self, silent=False):
         try:
@@ -88,10 +88,10 @@ class ProjectOps:
             elif silent == True:
                 os.system("./rn >>runlog 2>&1")
             else:
-                raise Exception("Invalid input for argument 'silent'")
+                raise ValueError("Invalid input for argument 'silent'")
             print("Done with the run!\n")
-        except:
-            raise Exception("Project '%s' does not exists...could not run!" %self.projName)
+        except Exception:
+            raise OSError("Project '%s' does not exists...could not run!" %self.projName)
     
     def rerun(self, photo, silent=False):
         try:
@@ -101,10 +101,10 @@ class ProjectOps:
             elif silent == True:
                 os.system("./re %s >>runlog 2>&1" %photo)
             else:
-                raise Exception("Invalid input for argument 'silent'")
+                raise ValueError("Invalid input for argument 'silent'")
             print("Done with the run!\n")
-        except:
-            raise Exception("Photo '%s' does not exists...could not restart!" %photo)
+        except Exception:
+            raise OSError("Photo '%s' does not exists...could not restart!" %photo)
     
     def loadProjInlist(self, inlistPath):
         try:
@@ -115,5 +115,5 @@ class ProjectOps:
     def loadPGstarInlist(self, inlistPath):
         try:
             os.system("cd ..; cp %s %s/inlist_pgstar" %(inlistPath, self.projName))
-        except:
-            raise Exception("Inlist '%s' does not exists...could not restart!" %inlistPath)
+        except Exception:
+            raise OSError("Inlist '%s' does not exists...could not restart!" %inlistPath)
