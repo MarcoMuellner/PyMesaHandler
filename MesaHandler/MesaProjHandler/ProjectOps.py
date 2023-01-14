@@ -69,7 +69,7 @@ class ProjectOps:
             print("Cleaning...")
             os.system("./clean")
             print("Done cleaning.\n")
-        except Exception:
+        except OSError:
             raise OSError("Project '%s' does not exists...could not clean!" %self.projName)
 
     def make(self):
@@ -77,7 +77,7 @@ class ProjectOps:
             print("Making...")
             os.system("./mk >>/dev/null 2>&1")
             print("Done making.\n")
-        except Exception:
+        except OSError:
             raise OSError("Project '%s' does not exists...could not make!" %self.projName)
     
     def run(self, silent=False):
@@ -90,7 +90,7 @@ class ProjectOps:
             else:
                 raise ValueError("Invalid input for argument 'silent'")
             print("Done with the run!\n")
-        except Exception:
+        except OSError:
             raise OSError("Project '%s' does not exists...could not run!" %self.projName)
     
     def rerun(self, photo, silent=False):
@@ -103,17 +103,17 @@ class ProjectOps:
             else:
                 raise ValueError("Invalid input for argument 'silent'")
             print("Done with the run!\n")
-        except Exception:
+        except OSError:
             raise OSError("Photo '%s' does not exists...could not restart!" %photo)
     
     def loadProjInlist(self, inlistPath):
         try:
             os.system("cd ..; cp %s %s/inlist_project" %(inlistPath, self.projName))
-        except Exception:
+        except OSError:
             raise OSError("Inlist '%s' does not exists...could not restart!" %inlistPath)
     
     def loadPGstarInlist(self, inlistPath):
         try:
             os.system("cd ..; cp %s %s/inlist_pgstar" %(inlistPath, self.projName))
-        except Exception:
+        except OSError:
             raise OSError("Inlist '%s' does not exists...could not restart!" %inlistPath)
