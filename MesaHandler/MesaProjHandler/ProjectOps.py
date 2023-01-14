@@ -122,13 +122,13 @@ class ProjectOps:
     def loadProjInlist(self, inlistPath):
         try:
             if os.system("cd ..; cp %s %s/inlist_project" %(inlistPath, self.projName)) != 0:
-                raise OSError("Inlist '%s' does not exists...could not load!" %inlistPath)
+                raise OSError("Either the project '%s' or the inlist '%s' does not exists...could not load!" %(self.projName, inlistPath))
         except:
             raise Exception("Loading project inlist failed!" %inlistPath)
     
     def loadPGstarInlist(self, inlistPath):
         try:
             if os.system("cd ..; cp %s %s/inlist_pgstar" %(inlistPath, self.projName)) != 0:
-                raise OSError("Inlist '%s' does not exists...could not load!" %inlistPath)
+                raise OSError("Either the project '%s' or the inlist '%s' does not exists...could not load!" %(self.projName, inlistPath))
         except:
             raise Exception("Loading pgstar inlist failed!" %inlistPath)
