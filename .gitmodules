@@ -5,5 +5,3 @@
 	path = MesaHandler/MesaProjHandler
 	url = https://github.com/gautam-404/MesaProjHandler.git
 	branch = PyMesaHandler
-[submodule "MesaProjHandler"]
-	branch = PyMesaHandler
