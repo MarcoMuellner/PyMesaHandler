@@ -1,5 +1,4 @@
-from MesaHandler.MesaProjHandler import ProjectOps
-from MesaHandler import MesaAccess
+from MesaHandler import MesaAccess, ProjectOps
 
 ## Use ProjectOps("your_project") for a custom project name
 work = ProjectOps()          
