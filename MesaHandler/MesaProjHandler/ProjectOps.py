@@ -109,8 +109,8 @@ class ProjectOps:
     def loadProjInlist(self, inlistPath):
         try:
             os.system("cd ..; cp %s %s/inlist_project" %(inlistPath, self.projName))
-        except:
-            raise Exception("Inlist '%s' does not exists...could not restart!" %inlistPath)
+        except Exception:
+            raise OSError("Inlist '%s' does not exists...could not restart!" %inlistPath)
     
     def loadPGstarInlist(self, inlistPath):
         try:
