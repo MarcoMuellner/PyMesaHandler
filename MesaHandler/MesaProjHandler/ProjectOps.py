@@ -35,7 +35,7 @@ class ProjectOps:
                 self.clean()
             elif clean == False:
                 print("Using the already existing '%s' project as it is." %self.projName)
-            else Exception:
+            else:
                 raise ValueError("Invalid input for argument 'clean'")
         
         def writeover():
