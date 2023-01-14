@@ -151,3 +151,4 @@ class ProjectOps:
         except subprocess.CalledProcessError:
             print(f"Either the project '{self.projName}' or the inlist '{inlistPath}' does not exists...could not load!")
             print("Loading pgstar inlist terminated!")
+            
