@@ -65,55 +65,70 @@ class ProjectOps:
     
 
     def clean(self):
+        print("Cleaning...")
         try:
-            print("Cleaning...")
-            os.system("./clean")
-            print("Done cleaning.\n")
-        except OSError:
-            raise OSError("Project '%s' does not exists...could not clean!" %self.projName)
+            if os.system("./clean") != 0:
+                raise OSError("Either the project '%s' or the file '%s/clean' does not exists...could not clean!" %(self.projName, self.projName))
+            else:
+                print("Done cleaning.\n")
+        except:
+            raise Exception("Clean failed!")
+            
 
     def make(self):
+        print("Making...")
         try:
-            print("Making...")
-            os.system("./mk >>/dev/null 2>&1")
+            if os.system("./mk >>/dev/null 2>&1") != 0:
+                raise OSError("Either the project '%s' or the file '%s/mk' does not exists...could not make!" %(self.projName, self.projName))
             print("Done making.\n")
-        except OSError:
-            raise OSError("Project '%s' does not exists...could not make!" %self.projName)
+        except:
+            raise Exception("Make failed!")
+        
     
     def run(self, silent=False):
+        print('Running...')
         try:
-            print('Running...')
             if silent == False:
-                os.system("./rn")
+                exitcode = os.system("./rn")
             elif silent == True:
-                os.system("./rn >>runlog 2>&1")
+                exitcode = os.system("./rn >>runlog 2>&1")
             else:
                 raise ValueError("Invalid input for argument 'silent'")
-            print("Done with the run!\n")
-        except OSError:
-            raise OSError("Project '%s' does not exists...could not run!" %self.projName)
+            if exitcode != 0:
+                raise OSError("Either the project '%s' or the file '%s/rn' does not exists...could not run!" %(self.projName, self.projName))
+            else:
+                print("Done with the run!\n")
+        except:
+            raise Exception("Run failed!")
+            
     
     def rerun(self, photo, silent=False):
         try:
             print("Running from photo...")
             if silent == False:
-                os.system("./re %s" %photo)
+                exitcode = os.system("./re %s" %photo)
             elif silent == True:
-                os.system("./re %s >>runlog 2>&1" %photo)
+                exitcode = os.system("./re %s >>runlog 2>&1" %photo)
             else:
                 raise ValueError("Invalid input for argument 'silent'")
-            print("Done with the run!\n")
+            if exitcode != 0:
+                raise OSError("Either the project '%s' or the file '%s/re'  does not exists...could not restart!" %(self.projName, self.projName))
+            else:
+                print("Done with the run!\n")
         except OSError:
-            raise OSError("Photo '%s' does not exists...could not restart!" %photo)
+            raise Exception("Rerun failed!")
+            
     
     def loadProjInlist(self, inlistPath):
         try:
-            os.system("cd ..; cp %s %s/inlist_project" %(inlistPath, self.projName))
-        except OSError:
-            raise OSError("Inlist '%s' does not exists...could not restart!" %inlistPath)
+            if os.system("cd ..; cp %s %s/inlist_project" %(inlistPath, self.projName)) != 0:
+                raise OSError("Inlist '%s' does not exists...could not load!" %inlistPath)
+        except:
+            raise Exception("Loading project inlist failed!" %inlistPath)
     
     def loadPGstarInlist(self, inlistPath):
         try:
-            os.system("cd ..; cp %s %s/inlist_pgstar" %(inlistPath, self.projName))
-        except OSError:
-            raise OSError("Inlist '%s' does not exists...could not restart!" %inlistPath)
+            if os.system("cd ..; cp %s %s/inlist_pgstar" %(inlistPath, self.projName)) != 0:
+                raise OSError("Inlist '%s' does not exists...could not load!" %inlistPath)
+        except:
+            raise Exception("Loading pgstar inlist failed!" %inlistPath)
