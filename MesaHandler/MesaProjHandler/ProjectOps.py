@@ -21,26 +21,26 @@ class ProjectOps:
 
     def create(self, overwrite=None, clean=None):       ### overwrite and clean are boolean arguments that are intentionally kept empty
         def useExisting():
-            if not click.confirm("Use the already existing '%s' project as it is?" %self.projName, default=False):
+            if not click.confirm(f"Use the already existing '{self.projName}' project as it is?", default=False):
                 raise ValueError("Aborting!!! No project specified.")
                 os._exit()
 
         def cleanCheck():
             if clean == None:
-                if click.confirm("Clean the existing '%s' project for re-use?" %self.projName, default=False):
+                if click.confirm(f"Clean the existing '{self.projName}' project for re-use?", default=False):
                     self.clean()
                 else:
                     useExisting()
             elif clean == True:
                 self.clean()
             elif clean == False:
-                print("Using the already existing '%s' project as it is." %self.projName)
+                print(f"Using the already existing '{self.projName}' project as it is.")
             else:
                 raise ValueError("Invalid input for argument 'clean'")
         
         def writeover():
             os.chdir("..")
-            os.system("rm -rf %s; cp -r $MESA_DIR/star/work ." %self.projName)
+            os.system(f"rm -rf '{self.projName}'; cp -r $MESA_DIR/star/work .")
             os.rename("work", self.projName)
             os.chdir(self.projName)
 
@@ -50,8 +50,8 @@ class ProjectOps:
             elif overwrite == False:
                 cleanCheck()
             elif overwrite == None:
-                print("Mesa project named '"+self.projName+"' already exists!")
-                if not click.confirm("Use the already existing '%s' project as it is?" %self.projName, default=False):
+                print(f"Mesa project named '{self.projName}' already exists!")
+                if not click.confirm(f"Use the already existing '{self.projName}' project as it is?", default=False):
                     if click.confirm("Do you wish to overwrite?", default=False):
                         writeover()
                     else:
@@ -59,7 +59,7 @@ class ProjectOps:
             else:
                 raise ValueError("Invalid input for argument 'overwrite'")
         else:
-            os.system("cp -r $MESA_DIR/star/work %s" %self.projName)
+            os.system(f"cp -r $MESA_DIR/star/work '{self.projName}'")
             os.chdir(self.projName)
         
     
@@ -68,7 +68,7 @@ class ProjectOps:
         print("Cleaning...")
         try:
             if os.system("./clean") != 0:
-                raise OSError("Either the project '%s' or the file '%s/clean' does not exists...could not clean!" %(self.projName, self.projName))
+                raise OSError(f"Either the project '{self.projName}' or the file '{self.projName}/clean' does not exists...could not clean!")
             else:
                 print("Done cleaning.\n")
         except:
@@ -79,7 +79,7 @@ class ProjectOps:
         print("Making...")
         try:
             if os.system("./mk >>/dev/null 2>&1") != 0:
-                raise OSError("Either the project '%s' or the file '%s/mk' does not exists...could not make!" %(self.projName, self.projName))
+                raise OSError(f"Either the project '{self.projName}' or the file '{self.projName}/mk' does not exists...could not make!")
             print("Done making.\n")
         except:
             raise Exception("Make failed!")
@@ -95,7 +95,7 @@ class ProjectOps:
             else:
                 raise ValueError("Invalid input for argument 'silent'")
             if exitcode != 0:
-                raise OSError("Either the project '%s' or the file '%s/rn' does not exists...could not run!" %(self.projName, self.projName))
+                raise OSError(f"Either the project '{self.projName}' or the file '{self.projName}/rn' does not exists...could not run!")
             else:
                 print("Done with the run!\n")
         except:
@@ -112,7 +112,7 @@ class ProjectOps:
             else:
                 raise ValueError("Invalid input for argument 'silent'")
             if exitcode != 0:
-                raise OSError("Either the project '%s' or the file '%s/re'  does not exists...could not restart!" %(self.projName, self.projName))
+                raise OSError(f"Either the project '{self.projName}' or the file '{self.projName}/re'  does not exists...could not restart!")
             else:
                 print("Done with the run!\n")
         except OSError:
@@ -121,14 +121,14 @@ class ProjectOps:
     
     def loadProjInlist(self, inlistPath):
         try:
-            if os.system("cd ..; cp %s %s/inlist_project" %(inlistPath, self.projName)) != 0:
-                raise OSError("Either the project '%s' or the inlist '%s' does not exists...could not load!" %(self.projName, inlistPath))
+            if os.system(f"cd ..; cp {inlistPath} {self.projName}/inlist_project") != 0:
+                raise OSError(f"Either the project '{self.projName}' or the inlist {inlistPath} does not exists...could not load!" %(self.projName, inlistPath))
         except:
             raise Exception("Loading project inlist failed!" %inlistPath)
     
     def loadPGstarInlist(self, inlistPath):
         try:
-            if os.system("cd ..; cp %s %s/inlist_pgstar" %(inlistPath, self.projName)) != 0:
-                raise OSError("Either the project '%s' or the inlist '%s' does not exists...could not load!" %(self.projName, inlistPath))
+            if os.system(f"cd ..; cp {inlistPath} {self.projName}/inlist_pgstar") != 0:
+                raise OSError(f"Either the project '{self.projName}' or the inlist '{inlistPath}' does not exists...could not load!" %(self.projName, inlistPath))
         except:
             raise Exception("Loading pgstar inlist failed!" %inlistPath)
